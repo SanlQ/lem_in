@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:38 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/19 22:00:39 by melalj           ###   ########.fr       */
+/*   Updated: 2020/01/19 22:31:01 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,15 @@ t_edge	*bfs_queue_add_edges(t_graph *g, t_queue **q, t_queue *q_p, t_edge *edge)
 {
 	t_edge *curr;
 	int t;
-	
+
 	curr = edge;
 	while (curr)
 	{
 		t = 0;
-		if (ft_strequ(curr->node_src->name, "Ghu9"))
-		{
-			t = 0;
-		}
-		if (curr->node_src->seen && q_p->edge && !q_p->edge->node_src->seen && !curr->node_dst->seen)
-		{
-			// ft_printf("abbah\n");
+		if ((curr->node_src->seen &&
+			((q_p->edge && !q_p->edge->node_src->seen && !curr->node_dst->seen)
+				|| (curr->node_dst->seen && !curr->residual->flow))))
 			t = 1;
-		}
-		if (curr->node_src->seen && curr->node_dst->seen && !curr->residual->flow)
-		{
-			// ft_printf("abbah\n");
-			t = 1;
-		}
 		if (!curr->seen && !curr->flow && curr->node_dst != g->start && !t)
 		{
 			add_to_queue(q, curr, 0);
@@ -88,10 +78,6 @@ int		bfs_queue_iter(t_graph *g)
 	// 	ft_printf("%s ", curr->node_dst->name);
 	while (ret && curr)
 	{
-		if (ft_strequ(curr->node_src->name, "Ghu9"))
-		{
-			ret = ret;
-		}
 		// ft_printf("%s ", curr->node_src->name);
 		curr->flow = 1;
 		curr->node_dst->seen = 1;
