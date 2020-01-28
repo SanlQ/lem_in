@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/17 20:33:28 by melalj           ###   ########.fr       */
+/*   Updated: 2020/01/28 04:11:56 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,13 @@ typedef struct				s_path
 
 
 
-struct						s_flow
+typedef	struct				s_flow
 {
 	t_path		*paths;
 	size_t		n_paths;
-};
+}							t_flow;
 
-struct	s_dvisu
+struct						s_dvisu
 {
 	SDL_Window		*window;
 	SDL_Surface		*s_surface;
@@ -129,6 +129,16 @@ struct	s_dvisu
 	int				f;
 	int				path_n;
 };
+
+// typedef	struct				s_ants
+// {
+// 	size_t			ant;
+// 	size_t			position;
+// 	size_t			end;
+// 	t_path			*path;
+// 	struct	s_ants	*next;
+// }							t_ants;
+
 
 /*
 ***** function prototypes ******
@@ -185,6 +195,7 @@ t_node						**h_table(t_node **refs, t_parse *lines,
 int							edges_fill(t_node **lst_node, t_parse *lines,
 										int nodes_c);
 void	graph_free(t_graph *g);
+void    push_ants(t_flow *paths, size_t n_ants);
 
 
 #endif

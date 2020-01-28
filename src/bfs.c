@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:38 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/19 22:31:01 by melalj           ###   ########.fr       */
+/*   Updated: 2020/01/20 21:16:02 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		bfs_queue_iter(t_graph *g)
 	return (ret);
 }
 
-t_edge *bfs_add_path_follow_flow(t_graph *g, t_node *node)
+t_edge *bfs_add_path_follow_flow(t_node *node)
 {
 	t_edge *curr;
 
@@ -116,7 +116,7 @@ t_path	*bfs_add_path(t_graph *g)
 	t_path *path;
 	t_edge *curr;
 
-	if (!(curr = bfs_add_path_follow_flow(g, g->start)))
+	if (!(curr = bfs_add_path_follow_flow(g->start)))
 		return (NULL);
 	path = (t_path *)malloc(sizeof(t_path));
 	path->next = NULL;
@@ -126,7 +126,7 @@ t_path	*bfs_add_path(t_graph *g)
 	{
 		add_to_queue(&(path->edge), curr, 0);
 		path->size++;
-		curr = bfs_add_path_follow_flow(g, curr->node_dst);
+		curr = bfs_add_path_follow_flow(curr->node_dst);
 	}
 	return (path);
 }
@@ -182,20 +182,9 @@ t_flow	*bfs_paths_collector(t_graph *g)
 t_flow	*bfs(t_graph *g)
 {
 	t_flow	*flow;
-	t_flow	*curr;
-
-	flow = NULL;
 
 	while (bfs_queue_iter(g))
 		;
 	flow = bfs_paths_collector(g);
-	curr = flow;
-	ft_printf("\n\n\n");
-	while (curr->paths)
-	{
-		print_queue(curr->paths->edge);
-		// ft_printf("%d\n", curr->paths->size);
-		curr->paths = curr->paths->next;
-	}
-	return (NULL);
+	return (flow);
 }

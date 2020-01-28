@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/17 20:33:08 by melalj           ###   ########.fr       */
+/*   Updated: 2020/01/28 04:49:10 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int		main(void)
 	t_graph		*g;
 	t_node		**refs;
 	size_t		n_ants;
-
-
+	t_flow		*paths;
+	t_path		*curr;
 	i = 0;
 	pp = get_lines(&nodes_c);
 
@@ -84,7 +84,18 @@ int		main(void)
 
 	g = graph_init(refs, nodes, nodes_c, 0);
 	ft_printf("\n\nstarting solving process\n\n");
-	bfs(g);
+	paths = bfs(g);
+	ft_printf("[%zu]\n", paths->n_paths);
+	curr = paths->paths;
+	while (curr)
+	{
+		ft_printf("path: ");
+		print_queue(curr->edge);
+		ft_printf("size [%d]\n", curr->size);
+		curr = curr->next;
+	}
+	ft_printf("\n\n[starting pushing ants]\n\n");
+	push_ants(paths, n_ants);
 
 	// graph_draw(g);
 

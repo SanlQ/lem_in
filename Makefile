@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: melalj <melalj@student.42.fr>              +#+  +:+       +#+         #
+#    By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 11:00:35 by melalj            #+#    #+#              #
-#    Updated: 2020/01/16 18:43:16 by melalj           ###   ########.fr        #
+#    Updated: 2020/01/22 00:07:10 by magoumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,29 +15,22 @@ SRC_NAME = lem_in_main.c\
 			parser.c\
 			hash_t.c\
 			get_lines.c\
-			visu.c\
 			tools.c\
-			graph_draw.c\
-			edges_draw.c\
 			graph.c\
 			bfs.c\
-			queue.c
+			queue.c\
+			push_ants.c
+			# edges_draw.c\
+			# graph_draw.c\
+			# visu.c\
 
 OBJ_PATH = obj
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
-LDFLIBS =	-L ~/.brew/Cellar/sdl2/2.0.10/lib -lSDL2-2.0.0 -lSDL2 \
-			-L ~/.brew/Cellar/sdl2_image/2.0.5/lib -lSDL2_image \
-			-lSDL2_image-2.0.0 \
-			-L ~/.brew/Cellar/sdl2_ttf/2.0.15/lib -lSDL2_ttf \
-			-lSDL2_ttf-2.0.0 \
-			-L libft -lft
+LDFLIBS =	-L libft -lft\
 
-CPPFLAGS =	-I ~/.brew/Cellar/sdl2_image/2.0.5/include/SDL2 \
-			-I ~/.brew/Cellar/sdl2/2.0.10/include/SDL2 \
-			-I ~/.brew/Cellar/sdl2_ttf/2.0.15/include/SDL2 \
-			-I include \
+CPPFLAGS =	-I include \
 			-I libft/include \
 
 CC = gcc
