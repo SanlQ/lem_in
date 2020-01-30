@@ -6,7 +6,7 @@
 /*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/28 04:49:10 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/01/28 19:15:58 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,14 @@ int		main(void)
 	size_t		n_ants;
 	t_flow		*paths;
 	t_path		*curr;
+
 	i = 0;
 	pp = get_lines(&nodes_c);
-
 	n_ants = (size_t)ft_atoi(pp->line);
 	refs = (t_node **)malloc(sizeof(t_node *) * nodes_c);
 	nodes = h_table(refs, pp, nodes_c);
 	edges_fill(nodes, pp, nodes_c);
 	parser_free(pp);
-
 	g = graph_init(refs, nodes, nodes_c, 0);
 	ft_printf("\n\nstarting solving process\n\n");
 	paths = bfs(g);
@@ -91,13 +90,12 @@ int		main(void)
 	{
 		ft_printf("path: ");
 		print_queue(curr->edge);
-		ft_printf("size [%d]\n", curr->size);
 		curr = curr->next;
 	}
 	ft_printf("\n\n[starting pushing ants]\n\n");
 	push_ants(paths, n_ants);
-
-	// graph_draw(g);
-
+	/*
+	 graph_draw(g);
+	*/
 	return (0);
 }

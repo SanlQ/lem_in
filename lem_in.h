@@ -6,7 +6,7 @@
 /*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/28 04:11:56 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/01/29 11:41:39 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,8 @@ struct						s_dvisu
 
 // typedef	struct				s_ants
 // {
-// 	size_t			ant;
-// 	size_t			position;
 // 	size_t			end;
 // 	t_path			*path;
-// 	struct	s_ants	*next;
 // }							t_ants;
 
 
