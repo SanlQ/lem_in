@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 10:38:01 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/15 21:30:47 by melalj           ###   ########.fr       */
+/*   Updated: 2020/01/30 18:31:06 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	visu_init(t_graph *g)
 	SDL_Event	event;
 	int			close_requested;
 
+	if (!g->v_visu)
+		return (0);
 	close_requested = 0;
 	init(g->data);
 	dstr.w = 20;

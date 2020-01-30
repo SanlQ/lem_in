@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/30 18:21:04 by melalj           ###   ########.fr       */
+/*   Updated: 2020/01/30 18:30:39 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	parser_free(t_parse *p)
 // 	}
 // }
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	t_parse		*pp;
 	t_node		**nodes;
@@ -81,7 +81,7 @@ int		main(void)
 	nodes = h_table(refs, pp, nodes_c);
 	edges_fill(nodes, pp, nodes_c);
 	parser_free(pp);
-	g = graph_init(refs, nodes, nodes_c, 1);
+	g = graph_init(refs, nodes, nodes_c, (ac == 2 && ft_strequ(av[1], "-v") ? 1 : 0));
 	visu_init(g);
 	ft_printf("\n\nstarting solving process\n\n");
 	paths = bfs(g);

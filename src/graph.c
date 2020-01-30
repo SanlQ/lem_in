@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 19:03:24 by archid-           #+#    #+#             */
-/*   Updated: 2020/01/15 21:33:34 by melalj           ###   ########.fr       */
+/*   Updated: 2020/01/30 18:29:43 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_graph *graph_init(t_node **refs, t_node **nodes, int nodes_c, int v)
 	g->nodes_ref = refs;
 	g->max_c.x = 0;
 	g->max_c.y = 0;
+	g->v_visu = v;
 	g->n_nodes = nodes_c;
 	g->start = NULL;
 	g->sink = NULL;
