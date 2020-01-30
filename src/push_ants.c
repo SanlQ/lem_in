@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 22:28:36 by magoumi           #+#    #+#             */
-/*   Updated: 2020/01/30 12:30:54 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/01/30 18:24:56 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,19 +119,20 @@ size_t	push_ants_to_start(size_t ants, t_flow *paths, int *i)
 int		push_to_next(t_queue *curr)
 {
 	int	ant;
-
+	int a;
+	a = 0;
 	//ft_printf("\033[0;35m[dst->[%s][%d]src->[%s][%d]]\033[0m",  curr->edge->node_dst->name, curr->edge->node_dst->seen,  curr->edge->node_src->name, curr->edge->node_src->seen);
 	// curr = curr->next;
 	if (curr->next){
 		if (curr->edge->node_dst->seen != 0){
 			//ft_printf("\033[0;35m[going next %d]\033[0m", curr->edge->node_dst->seen);
-			push_to_next(curr->next);
+			a = push_to_next(curr->next);
 		}
 	}
 	ant = curr->edge->node_src->seen;
 	//ft_printf("\033[0;35m[ant id = %d]\033[0m", ant);
 	if (!ant)
-		return (0);
+		return (a ? 1 : 0);
 	//ft_printf("[printing step]");
 	curr->edge->node_dst->seen = ant;
 	ft_printf("\033[0;34mL%d-%s \033[0m", ant, curr->edge->node_dst->name);
@@ -167,7 +168,7 @@ void	push_ants(t_flow *paths, size_t n_ants)
 	init_paths_with_ants(paths);
 	i = 1;
 	d = 0;
-	while (i < 10)
+	while (i)
 	{
 		curr = paths->paths;
 		while (curr)
