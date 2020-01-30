@@ -6,7 +6,7 @@
 /*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 22:28:36 by magoumi           #+#    #+#             */
-/*   Updated: 2020/01/30 10:06:35 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/01/30 12:30:54 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ size_t	push_ants_to_start(size_t ants, t_flow *paths, int *i)
 	j = 0;
 	while (curr && j < paths->n_paths && ants)
 	{
-		ft_printf("L%d-%s ", *i, curr->edge->edge->node_dst->name);
+		ft_printf("\033[1;34mL%d-%s \033[0m", *i, curr->edge->edge->node_dst->name);
 		ft_push_in_path(curr, *i);
 		curr = curr->next;
 		ants--;
@@ -120,22 +120,21 @@ int		push_to_next(t_queue *curr)
 {
 	int	ant;
 
-	//ft_printf("[%d]\n", curr->edge->node_src->seen);
-	curr = curr->next;
+	//ft_printf("\033[0;35m[dst->[%s][%d]src->[%s][%d]]\033[0m",  curr->edge->node_dst->name, curr->edge->node_dst->seen,  curr->edge->node_src->name, curr->edge->node_src->seen);
+	// curr = curr->next;
 	if (curr->next){
-		if (curr->edge->node_dst->seen != 0)
-		{
-			//ft_printf("[going next %d]\n", curr->edge->node_dst->seen);
+		if (curr->edge->node_dst->seen != 0){
+			//ft_printf("\033[0;35m[going next %d]\033[0m", curr->edge->node_dst->seen);
 			push_to_next(curr->next);
 		}
 	}
 	ant = curr->edge->node_src->seen;
-	//ft_printf("[ant id = %d]\n", ant);
+	//ft_printf("\033[0;35m[ant id = %d]\033[0m", ant);
 	if (!ant)
-		return (1);
-	//ft_printf("[abah]\n");
+		return (0);
+	//ft_printf("[printing step]");
 	curr->edge->node_dst->seen = ant;
-	ft_printf("L%d-%s ", ant, curr->edge->node_dst->name);
+	ft_printf("\033[0;34mL%d-%s \033[0m", ant, curr->edge->node_dst->name);
 	curr->edge->node_src->seen = 0;
 	return (1);
 }
@@ -147,11 +146,12 @@ void	push_ants_in_path(t_path *path)
 	/*
 	craete a while loop to loop thro the path and push every single ant
 	*/
-	curr = path->edge;
+	curr = path->edge->next;
 	while (curr && curr->next)
 	{
-		//ft_printf("[abah]");
-		push_to_next(curr);
+		//ft_printf("\033[0;35m[pushing the edge]\033[0m");
+		if (push_to_next(curr))
+			break ;
 		curr = curr->next;
 	}
 }
@@ -167,20 +167,20 @@ void	push_ants(t_flow *paths, size_t n_ants)
 	init_paths_with_ants(paths);
 	i = 1;
 	d = 0;
-	while (i)
+	while (i < 10)
 	{
 		curr = paths->paths;
 		while (curr)
 		{
-			//ft_printf("[pushing in path]\n");
+			//ft_printf("\033[0;33m[pushing in path]\033[0m");
 			push_ants_in_path(curr);
-			//ft_printf("[pushing in path done]\n");
+			//ft_printf("\033[0;33m[pushing done]\033[0m");
 			curr = curr->next;
 		}
-		//ft_printf("[pushing to start]\n");
+		//ft_printf("\033[0;32m[push start]\033[0m");
 		ants -= push_ants_to_start(ants, paths, &i);
-		//ft_printf("\n[pushing to start done]\n");
-		//ft_printf("\n\033[0;31m[next step]\033[0m\n");
+		//ft_printf("\033[0;32m\n[pushing to start done]\033[0m\n");
+		//ft_printf("\033[0;31m[next step %d]\033[0m\n", i);
 		ft_printf("\n");
 		if (check_paths(paths))
 			break ;
