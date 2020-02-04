@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: melalj <melalj@student.42.fr>              +#+  +:+       +#+         #
+#    By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 11:00:35 by melalj            #+#    #+#              #
-#    Updated: 2020/01/30 18:20:08 by melalj           ###   ########.fr        #
+#    Updated: 2020/02/04 22:21:47 by magoumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC_NAME = lem_in_main.c\
 			graph.c\
 			bfs.c\
 			queue.c\
-			push_ants.c
+			push_ants.c \
+			libghiti.c
 
 OBJ_PATH = obj
 
