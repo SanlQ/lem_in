@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/30 18:29:08 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/04 22:22:29 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,11 @@ t_node						**h_table(t_node **refs, t_parse *lines,
 										int nodes_c);
 int							edges_fill(t_node **lst_node, t_parse *lines,
 										int nodes_c);
-void	graph_free(t_graph *g);
-void    push_ants(t_flow *paths, size_t n_ants);
+void						graph_free(t_graph *g);
+void    					push_ants(t_flow *paths, size_t n_ants);
+int							check_paths(t_flow *paths);
+int							check_path(t_path *paths);
+void						init_paths_with_ants(t_flow *paths);
 
 
 #endif
