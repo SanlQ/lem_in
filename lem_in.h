@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/04 22:22:29 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/04 23:06:27 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct				s_path
 {
 	t_queue			*edge;
 	unsigned int	size;
+	int				n_ant;
 	struct s_path	*next;
 }							t_path;
 
@@ -197,6 +198,8 @@ void    					push_ants(t_flow *paths, size_t n_ants);
 int							check_paths(t_flow *paths);
 int							check_path(t_path *paths);
 void						init_paths_with_ants(t_flow *paths);
+void						error_exit(int error_code, void *content);
+t_flow						*bfs_paths_collector(t_graph *g);
 
 
 #endif

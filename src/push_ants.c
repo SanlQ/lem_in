@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 22:28:36 by magoumi           #+#    #+#             */
-/*   Updated: 2020/02/04 22:21:19 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/04 23:13:16 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,18 @@ size_t	push_ants_to_start(size_t ants, t_flow *paths, int *i)
 	j = 0;
 	while (curr && j < paths->n_paths && ants)
 	{
-		ft_printf("\033[1;34mL%d-%s \033[0m", *i,
-		curr->edge->edge->node_dst->name);
-		ft_push_in_path(curr, *i);
+		if (curr->n_ant && curr->n_ant--)
+		{
+			// ft_printf("\033[1;34mL%d-%s \033[0m", *i,
+			// curr->edge->edge->node_dst->name);
+			ft_printf("L%d-%s ", *i,
+			curr->edge->edge->node_dst->name);
+			ft_push_in_path(curr, *i);
+			ants--;
+			*i += 1;
+			j++;
+		}
 		curr = curr->next;
-		ants--;
-		*i += 1;
-		j++;
 	}
 	return (j);
 }
@@ -56,7 +61,8 @@ int		push_to_next(t_queue *curr)
 	if (!ant)
 		return (a ? 1 : 0);
 	curr->edge->node_dst->seen = ant;
-	ft_printf("\033[0;34mL%d-%s \033[0m", ant, curr->edge->node_dst->name);
+	// ft_printf("\033[0;34mL%d-%s \033[0m", ant, curr->edge->node_dst->name);
+	ft_printf("L%d-%s ", ant, curr->edge->node_dst->name);
 	curr->edge->node_src->seen = 0;
 	return (1);
 }

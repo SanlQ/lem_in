@@ -6,23 +6,20 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:08:00 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/19 22:20:43 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/04 22:40:09 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
-#include <fcntl.h>
 
-int debug_fd;
-
-int check_node(char *line) // func that check if the node is a valid node
+int		check_node(char *line)
 {
-	char **sline;
-	int i;
+	char	**sline;
+	int		i;
 
-	if (line && line[0] == '#' && line[1] != '#') // jumping the comments
+	if (line && line[0] == '#' && line[1] != '#')
 		return (-1);
-	else if (line && line[0] == '#' && line[1] == '#') // test the command is a start or end command if not its considerade as a command
+	else if (line && line[0] == '#' && line[1] == '#')
 	{
 		if (ft_strequ(line + 2, "start"))
 			return (NODE_START);
@@ -44,23 +41,18 @@ int check_node(char *line) // func that check if the node is a valid node
 	return (1);
 }
 
-int check_edge(char *line)
+int		check_edge(char *line)
 {
-	char **sline;
-	int i;
+	char	**sline;
+	int		i;
 
 	if (line && line[0] == '#')
 		return (-1);
 	sline = ft_strsplit(line, '-');
 	i = -1;
 	while (sline[++i])
-	{
-		// if (!ft_isnumber(sline[i]))
-			//compare node names using hash table (this condition is shit)
-		//	break ;
 		if (i == 1 && ft_strequ(sline[1], sline[0]))
 			break ;
-	}
 	free_tab(sline);
 	if (i != 2)
 		return (0);
@@ -84,17 +76,13 @@ int		parse_line(t_parse **p_lines, int *type, int *prop)
 {
 	char *line;
 
-	/* read_line(debug_fd, &line); */
 	read_line(0, &line);
-	if (ft_strequ(line, ""))
+	if (ft_strequ(line, "") && (*type)++)
 		*prop = -1;
 	else if (!(*type) && ft_isnumber(line))
 	{
 		if (ft_atoi(line) <= 0)
-		{
-			ft_printf("number of ants is not valid\n");
-			exit(1);
-		}
+			error_exit(1, p_lines);
 		*p_lines = add_pline(line, *type, *prop);
 		(*type)++;
 	}
@@ -108,15 +96,12 @@ int		parse_line(t_parse **p_lines, int *type, int *prop)
 		*p_lines = add_pline(line, *type, *prop);
 	}
 	else // need to free the list
-	{
-		ft_printf("error in parsing the input\n");
-		exit(1);
-	}
+		error_exit(2, p_lines);
 	free(line);
 	return ((*type == 1 && *prop == 1) ? 1 : 0);
 }
 
-t_parse	*get_lines(int *nodes_c)
+t_parse		*get_lines(int *nodes_c)
 {
 	t_parse	*p_lines;
 	t_parse	*current;
@@ -126,7 +111,6 @@ t_parse	*get_lines(int *nodes_c)
 	p_lines = NULL;
 	type = 0;
 	*nodes_c = 0;
-	debug_fd = open("1-2", O_RDONLY);
 	while (!type)
 		parse_line(&(current), &type, &prop);
 	p_lines = current;
@@ -140,11 +124,8 @@ t_parse	*get_lines(int *nodes_c)
 			current = current->next;
 			continue;
 		}
-		// ft_printf("line |%s| --- type : %d --- prop : %d\n",
-		// current->next->line, type, prop);
 		current = current->next;
 	}
-	close(debug_fd);
 	return (p_lines);
 }
 
