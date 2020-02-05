@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 03:02:37 by melalj            #+#    #+#             */
-/*   Updated: 2019/11/05 16:59:39 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/05 00:51:05 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,5 @@
 void	ft_putstr(char const *s)
 {
 	if (s)
-		while (*s)
-			ft_putchar(*s++);
+		write(1, s, ft_strlen(s));
 }

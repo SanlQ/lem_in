@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:38 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/04 23:08:57 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/05 01:04:37 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,44 @@ int		bfs_queue_iter(t_graph *g)
 	return (ret);
 }
 
-t_flow	*bfs(t_graph *g)
+int		flow_score(t_flow *flow, int n_ants)
+{
+	t_path	*curr_path;
+	int		n_node;
+	t_queue *curr_edge;
+
+	curr_path = flow->paths;
+	n_node = 0;
+	while (curr_path)
+	{
+		n_node += curr_path->size;
+		curr_path = curr_path->next;
+	}
+	return (((n_node + n_ants) / flow->n_paths) - 1);
+}
+
+t_flow	*bfs(t_graph *g, int n_ants)
 {
 	t_flow	*flow;
+	int		i;
+	int		j;
+	t_flow	*p_flow;
+	t_path	*curr;
 
-	while (bfs_queue_iter(g))
-		;
-	flow = bfs_paths_collector(g);
-	return (flow);
+	i = 0;
+	p_flow = NULL;
+	while (1)
+	{
+		j = -1;
+		while (++j <= i)
+			bfs_queue_iter(g);
+		flow = bfs_paths_collector(g, n_ants);
+		flow->score = flow_score(flow, n_ants);
+		if (p_flow && p_flow->score <= flow->score && free_sl(flow))
+			break ;
+		free(p_flow);
+		p_flow = flow;
+		i++;
+	}
+	return (p_flow);
 }

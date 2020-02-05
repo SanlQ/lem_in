@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/04 23:06:27 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/05 00:59:57 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef	struct				s_flow
 {
 	t_path		*paths;
 	size_t		n_paths;
+	int			score;
 }							t_flow;
 
 struct						s_dvisu
@@ -165,7 +166,7 @@ void	delete_queue(t_queue **queue);
 /*
 ** bfs
 */
-t_flow *bfs(t_graph *g);
+t_flow *bfs(t_graph *g, int n_ants);
 
 /*
 ************** tools **********
@@ -199,7 +200,8 @@ int							check_paths(t_flow *paths);
 int							check_path(t_path *paths);
 void						init_paths_with_ants(t_flow *paths);
 void						error_exit(int error_code, void *content);
-t_flow						*bfs_paths_collector(t_graph *g);
+t_flow						*bfs_paths_collector(t_graph *g, int n_ants);
+void						ant_count(t_flow *flow, int n_ants);
 
 
 #endif

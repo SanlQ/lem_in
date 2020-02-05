@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:56:28 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/04 23:15:34 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/05 00:59:34 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ static t_edge	*bfs_add_path_follow_flow(t_node *node)
 		}
 		if (curr->flow)
 		{
+			curr->origin = 0;
+			curr->seen = 0;
+			curr->node_dst->seen = 0;
+			curr->node_src->seen = 0;
 			curr->flow = 0;
 			break ;
 		}
@@ -58,6 +62,7 @@ static t_path	*bfs_add_path(t_graph *g)
 	path = (t_path *)malloc(sizeof(t_path));
 	path->next = NULL;
 	path->size = 0;
+	path->n_ant = 0;
 	path->edge = NULL;
 	while (curr)
 	{
@@ -68,7 +73,7 @@ static t_path	*bfs_add_path(t_graph *g)
 	return (path);
 }
 
-t_flow	*bfs_paths_collector(t_graph *g)
+t_flow	*bfs_paths_collector(t_graph *g, int n_ants)
 {
 	t_flow	*flow;
 	t_path	*path;
@@ -78,6 +83,7 @@ t_flow	*bfs_paths_collector(t_graph *g)
 	flow = (t_flow *)malloc(sizeof(t_flow));
 	flow->n_paths = 0;
 	flow->paths = NULL;
+	flow->score = 0;
 	while ((path = bfs_add_path(g)))
 	{
 		prev = NULL;
@@ -102,7 +108,9 @@ t_flow	*bfs_paths_collector(t_graph *g)
 				}
 			}
 		}
+		flow->score += path->size;
 		flow->n_paths++;
 	}
+	flow->score = (flow->score + n_ants) / flow->n_paths - 1;
 	return (flow);
 }

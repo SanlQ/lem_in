@@ -6,13 +6,13 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:23:07 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/04 22:40:55 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/04 23:44:28 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-void	ant_count_v(t_flow *flow, int n_ants)
+void	ant_count(t_flow *flow, int n_ants)
 {
 	t_path	*curr_path;
 	int		i;

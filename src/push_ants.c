@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 22:28:36 by magoumi           #+#    #+#             */
-/*   Updated: 2020/02/04 23:13:16 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/05 00:49:45 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	push_ants(t_flow *paths, size_t n_ants)
 	t_path	*curr;
 
 	ants = n_ants;
-	init_paths_with_ants(paths);
 	i = 1;
 	d = 0;
 	while (i)

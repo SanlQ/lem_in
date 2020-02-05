@@ -6,7 +6,7 @@
 #    By: melalj <melalj@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 11:00:35 by melalj            #+#    #+#              #
-#    Updated: 2020/02/04 23:06:04 by melalj           ###   ########.fr        #
+#    Updated: 2020/02/04 23:47:37 by melalj           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC_NAME = lem_in_main.c\
 			push_ants.c \
 			libghiti.c\
 			error_exit.c\
-			bfs_paths_collector.c
+			bfs_paths_collector.c\
+			ant_count.c
 
 OBJ_PATH = obj
 
