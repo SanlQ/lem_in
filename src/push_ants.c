@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 22:28:36 by magoumi           #+#    #+#             */
-/*   Updated: 2020/02/07 11:55:27 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:12:16 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ size_t	push_ants_to_start(size_t ants, t_flow *paths, int *i)
 	{
 		if (curr->n_ant && curr->n_ant--)
 		{
-			// ft_printf("\033[1;34mL%d-%s \033[0m", *i,
-			// curr->edge->edge->node_dst->name);
-			ft_printf("L%d-%s ", *i,
+			ft_printf("\033[1;34mL%d-%s \033[0m", *i,
 			curr->edge->edge->node_dst->name);
 			ft_push_in_path(curr, *i);
 			ants--;
@@ -61,14 +59,13 @@ int		push_to_next(t_queue *curr)
 	if (!ant)
 		return (a ? 1 : 0);
 	curr->edge->node_dst->seen = ant;
-	// ft_printf("\033[0;34mL%d-%s \033[0m", ant, curr->edge->node_dst->name);
-	ft_printf("L%d-%s ", ant, curr->edge->node_dst->name);
+	ft_printf("\033[0;34mL%d-%s \033[0m", ant, curr->edge->node_dst->name);
 	curr->edge->node_src->seen = 0;
 	return (1);
 }
 
 /*
-**	craete a while loop to loop thro the path and push every single ant **
+**	create a while loop to loop thro the path and push every single ant **
 */
 
 void	push_ants_in_path(t_path *path)

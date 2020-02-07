@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 10:38:01 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/30 18:31:06 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:11:28 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	data_init(t_dvisu *data)
 	data->path_n = 0;
 }
 
-int	init(t_dvisu *data)
+int		init(t_dvisu *data)
 {
 	data_init(data);
 	ft_printf("initing visu\n");
@@ -60,10 +60,10 @@ void	visu_quit(t_dvisu data)
 	SDL_Quit();
 }
 
-int	edge_draw(t_graph *g, t_edge *edge, int type)
+int		edge_draw(t_graph *g, t_edge *edge, int type)
 {
 	SDL_Rect	dstr;
-	// edge->v_c = (!(edge->v_c) || edge->v_c * type < 0)  ? type : edge->v_c;
+
 	g->data->f = type;
 	if (type == -1 && (edge->path_n == -1 && edge->residual->path_n == -1))
 	{
@@ -88,7 +88,7 @@ int	edge_draw(t_graph *g, t_edge *edge, int type)
 	return (1);
 }
 
-int	visu_init(t_graph *g)
+int		visu_init(t_graph *g)
 {
 	SDL_Rect	dstr;
 	SDL_Event	event;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 19:31:44 by melalj            #+#    #+#             */
-/*   Updated: 2019/12/23 19:32:32 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:06:31 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	map(int val, int *ranges)
 	d = (ranges[1] - ranges[0]) + ranges[2];
 	d = (!d) ? 1 : d;
 	result = (val - ranges[0]) * (ranges[3] - ranges[2]) / d;
-	// ft_printf("result %d --- %d %d d %d\n", result, ranges[0], ranges[1], d);
 	return (result);
 }
 

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bfs_paths_collector.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:56:28 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/05 00:59:34 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 16:47:23 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-static void	insert_mid(t_flow **flow, t_path **path, t_path **curr, t_path **prev)
+static void		insert_mid(t_flow **flow, t_path **path, t_path **curr,
+t_path **prev)
 {
 	while ((*curr)->next)
 	{
@@ -73,7 +74,7 @@ static t_path	*bfs_add_path(t_graph *g)
 	return (path);
 }
 
-t_flow	*bfs_paths_collector(t_graph *g, int n_ants)
+t_flow			*bfs_paths_collector(t_graph *g, int n_ants)
 {
 	t_flow	*flow;
 	t_path	*path;

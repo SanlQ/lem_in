@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/07 12:19:56 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 16:57:59 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,21 @@ int		main(int ac, char **av)
 	// visu_init(g);
 	// ft_printf("\n\nstarting solving process\n\n");
 	flow = bfs(g, n_ants);
-	// ft_printf("[%zu]\n", flow->n_paths);
-	// curr = flow->paths;
-	// while (curr)
-	// {
-	// 	ft_printf("path: ");
-	// 	print_queue(curr->edge);
-	// 	curr = curr->next;
-	// }
-	// ft_printf("\n\n[starting pushing ants]\n\n");
+	/*
+	ft_printf("[%zu]\n", flow->n_paths);
+	curr = flow->paths;
+	while (curr)
+	{
+		ft_printf("path: ");
+		print_queue(curr->edge);
+		curr = curr->next;
+	}
+	ft_printf("\n\n[starting pushing ants]\n\n");
+	*/
 	ant_count(flow, n_ants);
 	push_ants(flow, n_ants, g);
-	// /*
-	//  graph_draw(g);
-	// */
+	/*
+	 graph_draw(g);
+	*/
 	return (0);
 }

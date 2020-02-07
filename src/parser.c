@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 13:54:11 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/16 18:31:10 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:14:29 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-t_node	*new_node(int index, t_parse *line, int prop)
+t_node		*new_node(int index, t_parse *line, int prop)
 {
 	t_node	*new_n;
 	char	**s_line;
@@ -28,13 +28,12 @@ t_node	*new_node(int index, t_parse *line, int prop)
 	new_n->type = NODE_DEFAULT;
 	new_n->seen = false;
 	new_n->index = index;
-	// ft_printf("prop : %d\n", prop);
 	if (prop > 1)
 		new_n->type = (prop == 2 ? NODE_START : NODE_END);
 	return (new_n);
 }
 
-int		add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop, t_node **refs)
+int			add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop, t_node **refs)
 {
 	static size_t	index = 0;
 	char			**s_lines;
@@ -44,8 +43,6 @@ int		add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop, t_node *
 	s_lines = ft_strsplit(lines->line, ' ');
 	hash_h = hash((unsigned char*)s_lines[0]) % nodes_c;
 	refs[index] = new_node(index, lines, prop);
-	// ft_printf("added node %s in the hash %d\n", s_lines[0],
-	//						hash((unsigned char*)s_lines[0]) % nodes_c);
 	if (!lst_node[hash_h])
 	{
 		lst_node[hash_h] = refs[index++];
@@ -57,7 +54,6 @@ int		add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop, t_node *
 		return (0);
 	while (curr->next)
 	{
-		// ft_printf("%s | %s\n", s_lines[0], curr->name);
 		if (ft_strequ((curr)->name, s_lines[0]) && free_tab(s_lines))
 			return (0);
 		(curr) = (curr)->next;
@@ -67,8 +63,11 @@ int		add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop, t_node *
 	return (1);
 }
 
-// get node based on a hash
-t_node	*get_node(t_node **lst_node, char *name, int nodes_c)
+/*
+*****	get node based on a hash ******
+*/
+
+t_node		*get_node(t_node **lst_node, char *name, int nodes_c)
 {
 	int		hash_h;
 	t_node	*curr;
@@ -88,7 +87,7 @@ t_node	*get_node(t_node **lst_node, char *name, int nodes_c)
    add the edge and it's residual
 */
 
-int	add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
+int			add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
 {
 	t_edge *curr;
 	t_edge *tmp;
@@ -130,36 +129,35 @@ int	add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
 		tmp = curr->next;
 		curr->next->next = NULL;
 	}
-
 	tmp->origin = NULL;
 	tmp->flow = 0;
 	tmp->v_c = 0;
 	tmp->path_n = -1;
 	tmp->drawn = 0;
 	tmp->color.hex = 0;
-
 	if (is_residual == false)
 	{
-		// this need to stay tmp not curr
 		tmp->residual = e;
 		e->residual = tmp;
-
 		e->seen = 0;
 		tmp->seen = 0;
-		return 0;
+		return (0);
 	}
 	add_edge(dst, src, true, tmp);
 	return (1);
 }
 
-int	edges_fill(t_node **lst_node, t_parse *lines, int nodes_c)
+int			edges_fill(t_node **lst_node, t_parse *lines, int nodes_c)
 {
 	char	**s_lines;
 	t_node	*node[2];
 
-	while (lines && lines->type < 2) /* this just to walk till the edges
-										in the stored lines ant number has
-										type 0 and nodes has type 1 */
+	/*
+		this just to walk till the edges
+		in the stored lines ant number has
+		type 0 and nodes has type 1
+	*/
+	while (lines && lines->type < 2)
 	{
 		ft_printf("%s\n", lines->line);
 		lines = lines->next;
@@ -185,27 +183,3 @@ int	edges_fill(t_node **lst_node, t_parse *lines, int nodes_c)
 	}
 	return (1);
 }
-
-
-// !?
-// int	nodes_exract(void)
-// {
-// 	char	*line;
-// 	char	**sline;
-// 	int		i;
-
-// 	line = NULL;
-// 	read_line(0, &line);
-// 	i = -1;
-// 	if (line && (sline = ft_strsplit(line, ' ')))
-// 		while (sline[++i])
-// 		{
-// 			if (!i)
-// 				add_node();
-// 			if (i && !ft_isnumber(sline[i]))
-// 				break ;
-// 		}
-// 	if (i != 3)
-// 		return (0);
-// 	return (1);
-// }

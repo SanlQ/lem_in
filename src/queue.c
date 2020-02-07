@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:34:42 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/18 00:47:39 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:05:44 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-void add_to_queue(t_queue **queue, t_edge *edge, int head)
+void	add_to_queue(t_queue **queue, t_edge *edge, int head)
 {
 	t_queue *curr;
 

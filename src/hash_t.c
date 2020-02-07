@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_t.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 13:07:14 by melalj            #+#    #+#             */
-/*   Updated: 2020/01/15 21:30:41 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:10:11 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ unsigned long	hash(unsigned char *str)
 	hash = 5381;
 	while ((c = *str++))
 		hash = ((hash << 5) + hash) + c;
-	/*
-	** hash * 33 + c
-	*/
 	return (hash);
 }
 
-t_node		**h_table(t_node **refs, t_parse *lines, int nodes_c)
+t_node			**h_table(t_node **refs, t_parse *lines, int nodes_c)
 {
 	t_node	**nodes;
 	int		i;

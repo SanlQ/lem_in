@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   graph.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 19:03:24 by archid-           #+#    #+#             */
-/*   Updated: 2020/01/30 18:29:43 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:09:13 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-
-void lstdel_node(void *c, size_t size)
+void	lstdel_node(void *c, size_t size)
 {
 	t_edge *edges;
 	t_edge *tmp;
@@ -30,12 +29,11 @@ void lstdel_node(void *c, size_t size)
 	free(((t_node *)c)->name);
 }
 
-t_graph *graph_init(t_node **refs, t_node **nodes, int nodes_c, int v)
+t_graph	*graph_init(t_node **refs, t_node **nodes, int nodes_c, int v)
 {
 	t_graph *g;
 	t_node	*curr;
 	t_node	*walk;
-
 	size_t	i;
 
 	i = 0;
@@ -102,7 +100,6 @@ void	graph_free(t_graph *g)
 		ewalk = node->edges;
 		while (ewalk)
 		{
-			/* FIXME:  */
 			edge = ewalk;
 			ewalk = ewalk->next;
 			if (edge->node_src->edges)
@@ -119,4 +116,3 @@ void	graph_free(t_graph *g)
 	}
 	free(g);
 }
-

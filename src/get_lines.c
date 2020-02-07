@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_lines.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:08:00 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/04 22:40:09 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:08:54 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-int		check_node(char *line)
+int				check_node(char *line)
 {
 	char	**sline;
 	int		i;
@@ -41,7 +41,7 @@ int		check_node(char *line)
 	return (1);
 }
 
-int		check_edge(char *line)
+int				check_edge(char *line)
 {
 	char	**sline;
 	int		i;
@@ -72,7 +72,7 @@ static t_parse	*add_pline(char *line, int type, int prop)
 	return (p_lines);
 }
 
-int		parse_line(t_parse **p_lines, int *type, int *prop)
+int				parse_line(t_parse **p_lines, int *type, int *prop)
 {
 	char *line;
 
@@ -95,13 +95,13 @@ int		parse_line(t_parse **p_lines, int *type, int *prop)
 		(*type) = ((*type) == 1) ? (*type) + 1 : (*type);
 		*p_lines = add_pline(line, *type, *prop);
 	}
-	else // need to free the list
+	else
 		error_exit(2, p_lines);
 	free(line);
 	return ((*type == 1 && *prop == 1) ? 1 : 0);
 }
 
-t_parse		*get_lines(int *nodes_c)
+t_parse			*get_lines(int *nodes_c)
 {
 	t_parse	*p_lines;
 	t_parse	*current;
@@ -129,7 +129,7 @@ t_parse		*get_lines(int *nodes_c)
 	return (p_lines);
 }
 
-void	read_line(int fd, char **line)
+void			read_line(int fd, char **line)
 {
 	char *dump;
 	char tmp[2];
