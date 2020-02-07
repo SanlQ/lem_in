@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/05 00:59:57 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 11:55:25 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,9 +195,9 @@ t_node						**h_table(t_node **refs, t_parse *lines,
 int							edges_fill(t_node **lst_node, t_parse *lines,
 										int nodes_c);
 void						graph_free(t_graph *g);
-void    					push_ants(t_flow *paths, size_t n_ants);
-int							check_paths(t_flow *paths);
-int							check_path(t_path *paths);
+void    					push_ants(t_flow *paths, size_t n_ants, t_graph *g);
+int							check_paths(t_flow *paths, t_graph *g);
+int							check_path(t_path *paths, t_graph *g);
 void						init_paths_with_ants(t_flow *paths);
 void						error_exit(int error_code, void *content);
 t_flow						*bfs_paths_collector(t_graph *g, int n_ants);

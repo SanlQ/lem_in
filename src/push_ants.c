@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 22:28:36 by magoumi           #+#    #+#             */
-/*   Updated: 2020/02/05 00:49:45 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 11:55:27 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	push_ants_in_path(t_path *path)
 	}
 }
 
-void	push_ants(t_flow *paths, size_t n_ants)
+void	push_ants(t_flow *paths, size_t n_ants, t_graph *g)
 {
 	size_t	ants;
 	int		i;
@@ -104,7 +104,7 @@ void	push_ants(t_flow *paths, size_t n_ants)
 		}
 		ants -= push_ants_to_start(ants, paths, &i);
 		ft_printf("\n");
-		if (check_paths(paths))
+		if (check_paths(paths, g))
 			break ;
 	}
 }

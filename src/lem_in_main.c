@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/05 00:32:54 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/07 12:19:56 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int		main(int ac, char **av)
 	// }
 	// ft_printf("\n\n[starting pushing ants]\n\n");
 	ant_count(flow, n_ants);
-	push_ants(flow, n_ants);
-	/*
-	 graph_draw(g);
-	*/
+	push_ants(flow, n_ants, g);
+	// /*
+	//  graph_draw(g);
+	// */
 	return (0);
 }
