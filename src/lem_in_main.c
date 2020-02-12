@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/07 16:57:59 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/11 00:17:48 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,43 +27,23 @@ void	parser_free(t_parse *p)
 	}
 }
 
-int		main(int ac, char **av)
+int		main(void)
 {
 	t_parse		*pp;
 	t_node		**nodes;
 	int			nodes_c;
-	int			i;
 	t_graph		*g;
-	t_node		**refs;
-	size_t		n_ants;
+	int		n_ants;
 	t_flow		*flow;
 
-	i = 0;
 	pp = get_lines(&nodes_c);
-	n_ants = (size_t)ft_atoi(pp->line);
-	refs = (t_node **)malloc(sizeof(t_node *) * nodes_c);
-	nodes = h_table(refs, pp, nodes_c);
+	n_ants = ft_atoi(pp->line);
+	nodes = h_table(pp, nodes_c);
 	edges_fill(nodes, pp, nodes_c);
 	parser_free(pp);
-	g = graph_init(refs, nodes, nodes_c, (ac == 2 && ft_strequ(av[1], "-v") ? 1 : 0));
-	// visu_init(g);
-	// ft_printf("\n\nstarting solving process\n\n");
+	g = graph_init(nodes, nodes_c);
 	flow = bfs(g, n_ants);
-	/*
-	ft_printf("[%zu]\n", flow->n_paths);
-	curr = flow->paths;
-	while (curr)
-	{
-		ft_printf("path: ");
-		print_queue(curr->edge);
-		curr = curr->next;
-	}
-	ft_printf("\n\n[starting pushing ants]\n\n");
-	*/
 	ant_count(flow, n_ants);
 	push_ants(flow, n_ants, g);
-	/*
-	 graph_draw(g);
-	*/
 	return (0);
 }

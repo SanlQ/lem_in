@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/07 11:55:25 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/11 00:15:54 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,16 +181,15 @@ int		*range_comp(int in_s, int in_e, int out_s, int out_e);
 
 /* FIXME: re-write functions so that they are generalized */
 
-t_graph *graph_init(t_node **refs, t_node **nodes, int nodes_c, int v);
+t_graph *graph_init(t_node **nodes, int nodes_c);
 void						read_line(int fd, char **line);
 t_parse						*get_lines(int *nodes_c);
 unsigned long				hash(unsigned char *str);
 
 /* FIXME: review add_node */
 int							add_node(t_node **lst_node, t_parse *lines,
-										int nodes_c, int prop,
-										t_node **refs);
-t_node						**h_table(t_node **refs, t_parse *lines,
+										int nodes_c, int prop);
+t_node						**h_table(t_parse *lines,
 										int nodes_c);
 int							edges_fill(t_node **lst_node, t_parse *lines,
 										int nodes_c);

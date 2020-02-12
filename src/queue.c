@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:34:42 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/07 17:05:44 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/10 23:53:14 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,26 @@ void	add_to_queue(t_queue **queue, t_edge *edge, int head)
 
 	if (!*queue)
 	{
-		*queue = (t_queue *)malloc(sizeof(t_queue));
+		if (!(*queue = (t_queue *)malloc(sizeof(t_queue))))
+			error_exit(3, NULL);
 		(*queue)->edge = edge;
 		(*queue)->next = NULL;
 	}
 	else
 	{
-		if (!head)
+		if (!head && (curr = (*queue)))
 		{
-			curr = (*queue);
 			while (curr->next)
 				curr = curr->next;
-			curr->next = (t_queue *)malloc(sizeof(t_queue));
+			if (!(curr->next = (t_queue *)malloc(sizeof(t_queue))))
+				error_exit(3, NULL);
 			curr->next->edge = edge;
 			curr->next->next = NULL;
 		}
 		else
 		{
-			curr = (t_queue *)malloc(sizeof(t_queue));
+			if (!(curr = (t_queue *)malloc(sizeof(t_queue))))
+				error_exit(3, NULL);
 			curr->edge = edge;
 			curr->next = (*queue);
 			(*queue) = curr;

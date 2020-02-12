@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:38 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/07 12:04:11 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/10 22:26:21 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int		flow_score(t_flow *flow, int n_ants)
 {
 	t_path	*curr_path;
 	int		n_node;
-	t_queue *curr_edge;
 
 	curr_path = flow->paths;
 	n_node = 0;
@@ -103,7 +102,6 @@ t_flow	*bfs(t_graph *g, int n_ants)
 	int		i;
 	int		j;
 	t_flow	*p_flow;
-	t_path	*curr;
 
 	i = 0;
 	p_flow = NULL;

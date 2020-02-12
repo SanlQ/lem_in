@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 13:54:11 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/07 17:14:29 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/11 00:06:55 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_node		*new_node(int index, t_parse *line, int prop)
 	return (new_n);
 }
 
-int			add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop, t_node **refs)
+int			add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop)
 {
 	static size_t	index = 0;
 	char			**s_lines;
@@ -42,10 +42,9 @@ int			add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop, t_node 
 
 	s_lines = ft_strsplit(lines->line, ' ');
 	hash_h = hash((unsigned char*)s_lines[0]) % nodes_c;
-	refs[index] = new_node(index, lines, prop);
 	if (!lst_node[hash_h])
 	{
-		lst_node[hash_h] = refs[index++];
+		lst_node[hash_h] = new_node(index, lines, prop);
 		free_tab(s_lines);
 		return (1);
 	}
@@ -58,7 +57,7 @@ int			add_node(t_node **lst_node, t_parse *lines, int nodes_c, int prop, t_node 
 			return (0);
 		(curr) = (curr)->next;
 	}
-	(curr)->next = refs[index++];
+	(curr)->next = new_node(index, lines, prop);
 	free_tab(s_lines);
 	return (1);
 }
@@ -84,7 +83,7 @@ t_node		*get_node(t_node **lst_node, char *name, int nodes_c)
 }
 
 /*
-   add the edge and it's residual
+**  add the edge and it's residual
 */
 
 int			add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
@@ -97,26 +96,15 @@ int			add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
 	{
 		src->edges = (t_edge *)malloc(sizeof(t_edge));
 		tmp = src->edges;
-		src->edges->node_src = src;
-		src->edges->node_dst = dst;
-		src->edges->next = NULL;
-		src->edges->origin = NULL;
 	}
 	else
 	{
 		curr = src->edges;
-#ifdef DEBUG
-			ft_printf("%s - %s | %s - %s\n", curr->node_src->name,
-					  src->name, curr->node_dst->name, dst->name);
-#endif
 			if ((ft_strequ(curr->node_src->name, src->name)
 					&& ft_strequ(curr->node_dst->name, dst->name))
 					|| (ft_strequ(curr->node_src->name, dst->name)
 							&& ft_strequ(curr->node_dst->name, src->name)))
 			{
-#ifdef DEBUG
-				ft_printf("error : duplicated edge\n");
-#endif
 				exit(1);
 			}
 		while (curr->next)
@@ -124,17 +112,13 @@ int			add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
 			curr = curr->next;
 		}
 		curr->next = (t_edge *)malloc(sizeof(t_edge));
-		curr->next->node_src = src;
-		curr->next->node_dst = dst;
 		tmp = curr->next;
-		curr->next->next = NULL;
 	}
+	tmp->node_dst = dst;
+	tmp->node_src = src;
 	tmp->origin = NULL;
 	tmp->flow = 0;
-	tmp->v_c = 0;
-	tmp->path_n = -1;
-	tmp->drawn = 0;
-	tmp->color.hex = 0;
+	tmp->next = NULL;
 	if (is_residual == false)
 	{
 		tmp->residual = e;
@@ -152,16 +136,8 @@ int			edges_fill(t_node **lst_node, t_parse *lines, int nodes_c)
 	char	**s_lines;
 	t_node	*node[2];
 
-	/*
-		this just to walk till the edges
-		in the stored lines ant number has
-		type 0 and nodes has type 1
-	*/
-	while (lines && lines->type < 2)
-	{
-		ft_printf("%s\n", lines->line);
+	while (lines && lines->type < 2 && ft_printf("%s\n", lines->line))
 		lines = lines->next;
-	}
 	while (lines)
 	{
 		if (lines->line[0] == '#')
@@ -169,17 +145,15 @@ int			edges_fill(t_node **lst_node, t_parse *lines, int nodes_c)
 			lines = lines->next;
 			continue;
 		}
-		s_lines = ft_strsplit(lines->line, '-');
+		if (!(s_lines = ft_strsplit(lines->line, '-')))
+			error_exit(3, NULL);
 		node[0] = get_node(lst_node, s_lines[0], nodes_c);
 		node[1] = get_node(lst_node, s_lines[1], nodes_c);
+		free_tab(s_lines);
 		if (!node[0] || !node[1])
-		{
-			ft_printf("edge not found\n");
-			exit(1);
-		}
+			error_exit(4, NULL);
 		add_edge(node[0], node[1], false, NULL);
 		lines = lines->next;
-		free_tab(s_lines);
 	}
 	return (1);
 }

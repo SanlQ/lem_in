@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graph.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 19:03:24 by archid-           #+#    #+#             */
-/*   Updated: 2020/02/07 17:09:13 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/11 00:21:54 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	lstdel_node(void *c, size_t size)
 	free(((t_node *)c)->name);
 }
 
-t_graph	*graph_init(t_node **refs, t_node **nodes, int nodes_c, int v)
+t_graph	*graph_init(t_node **nodes, int nodes_c)
 {
 	t_graph *g;
 	t_node	*curr;
@@ -38,24 +38,16 @@ t_graph	*graph_init(t_node **refs, t_node **nodes, int nodes_c, int v)
 
 	i = 0;
 	g = (t_graph *)ft_memalloc(sizeof(t_graph));
-	g->nodes_ref = refs;
-	g->max_c.x = 0;
-	g->max_c.y = 0;
-	g->v_visu = v;
 	g->n_nodes = nodes_c;
 	g->start = NULL;
 	g->sink = NULL;
-	if (v)
-		g->data = (t_dvisu *)malloc(sizeof(t_dvisu));
 	while ((int)i < nodes_c)
 	{
 		curr = nodes[i];
 		while (curr)
 		{
-			if (curr->type == NODE_START)
-				g->start = curr;
-			else if (curr->type == NODE_END)
-				g->sink = curr;
+			g->start = (curr->type == NODE_START) ? curr : g->start;
+			g->sink = (curr->type == NODE_END) ? curr : g->sink;
 			if (g->nodes_lst == NULL)
 			{
 				g->nodes_lst = ft_memcpy(malloc(sizeof(t_node)),
@@ -68,19 +60,11 @@ t_graph	*graph_init(t_node **refs, t_node **nodes, int nodes_c, int v)
 										curr, sizeof(t_node));
 				walk = walk->next;
 			}
-			g->max_c.x = (g->max_c.x > curr->cords.x ?
-							g->max_c.x : curr->cords.x);
-			g->max_c.y = (g->max_c.y > curr->cords.y ?
-							g->max_c.y : curr->cords.y);
 			curr = curr->next;
 		}
 		i++;
 	}
-	if (!(g->start) || !(g->sink))
-	{
-		ft_printf("error no start or end\n");
-		exit(1);
-	}
+	error_exit(5, g);
 	return (g);
 }
 
@@ -93,21 +77,15 @@ void	graph_free(t_graph *g)
 	t_edge *ewalk;
 
 	nwalk = g->nodes_lst;
-	while (nwalk)
+	while (nwalk && (node = nwalk))
 	{
-		node = nwalk;
 		nwalk = nwalk->next;
 		ewalk = node->edges;
-		while (ewalk)
+		while (ewalk && (edge = ewalk))
 		{
-			edge = ewalk;
 			ewalk = ewalk->next;
-			if (edge->node_src->edges)
-			{
-				tmp = edge->node_dst->edges;
-				edge->node_dst->edges = NULL;
+			if (edge->node_src->edges && (tmp = edge->node_dst->edges))
 				free(tmp);
-			}
 			free(edge->node_src->edges);
 			edge->node_src->edges = NULL;
 		}
