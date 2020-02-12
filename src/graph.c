@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graph.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 19:03:24 by archid-           #+#    #+#             */
-/*   Updated: 2020/02/12 19:57:02 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/12 20:09:04 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_graph	*graph_init(t_node **nodes, int nodes_c)
 	g->n_nodes = nodes_c;
 	g->start = NULL;
 	g->sink = NULL;
+	g->color = 0;
 	while ((int)i < nodes_c)
 	{
 		curr = nodes[i];
