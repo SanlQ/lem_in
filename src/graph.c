@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/30 19:03:24 by archid-           #+#    #+#             */
-/*   Updated: 2020/02/13 23:01:48 by melalj           ###   ########.fr       */
+/*   Created: 2020/02/13 23:43:23 by melalj            #+#    #+#             */
+/*   Updated: 2020/02/13 23:43:48 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_graph	*graph_init(t_node **nodes, int nodes_c)
 	g->n_nodes = nodes_c;
 	g->start = NULL;
 	g->sink = NULL;
+	g->color = 0;
 	while ((int)i < nodes_c)
 	{
 		curr = nodes[i];

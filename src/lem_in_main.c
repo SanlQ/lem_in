@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/13 23:30:14 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/13 23:44:03 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,20 @@ void	parser_free(t_parse *p)
 	}
 }
 
-int		main(void)
+void	ft_check_arguments(t_graph *g, char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i])
+	{
+		if (ft_strequ(argv[i], "-s"))
+			g->color = 1;
+		i++;
+	}
+}
+
+int		main(int argc, char **argv)
 {
 	t_parse		*pp;
 	t_node		**nodes;
@@ -43,7 +56,10 @@ int		main(void)
 	parser_free(pp);
 	g = graph_init(nodes, nodes_c);
 	flow = bfs(g, n_ants);
-	ft_printf("abbah\n");
+	if (argc == 2)
+		ft_check_arguments(g, argv);
+	if (g->color)
+		ft_printf("printf with colors\n");
 	ant_count(flow, n_ants);
 	push_ants(flow, n_ants, g);
 	return (0);
