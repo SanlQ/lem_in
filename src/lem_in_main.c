@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/11 00:17:48 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/13 23:30:14 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		main(void)
 	parser_free(pp);
 	g = graph_init(nodes, nodes_c);
 	flow = bfs(g, n_ants);
+	ft_printf("abbah\n");
 	ant_count(flow, n_ants);
 	push_ants(flow, n_ants, g);
 	return (0);

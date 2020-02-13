@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:38 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/10 22:26:21 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/13 23:39:34 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_queue	*bfs_queue_init(t_graph *g, t_queue **queue)
 	t_edge *curr;
 
 	*queue = NULL;
+	if (!g->start)
+		error_exit(5, g);
 	curr = g->start->edges;
 	while (curr)
 	{
@@ -111,7 +113,6 @@ t_flow	*bfs(t_graph *g, int n_ants)
 		while (++j <= i)
 			bfs_queue_iter(g);
 		flow = bfs_paths_collector(g, n_ants);
-		flow->score = flow_score(flow, n_ants);
 		if (p_flow && p_flow->score <= flow->score && free_sl(flow))
 			break ;
 		free(p_flow);

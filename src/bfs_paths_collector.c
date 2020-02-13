@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs_paths_collector.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:56:28 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/07 16:47:23 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/13 23:34:16 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ t_flow			*bfs_paths_collector(t_graph *g, int n_ants)
 		flow->score += path->size;
 		flow->n_paths++;
 	}
+	if (!flow->n_paths)
+		error_exit(7, NULL);
 	flow->score = (flow->score + n_ants) / flow->n_paths - 1;
 	return (flow);
 }

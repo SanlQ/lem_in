@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 13:54:11 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/11 00:06:55 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/13 23:28:41 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,16 +135,17 @@ int			edges_fill(t_node **lst_node, t_parse *lines, int nodes_c)
 {
 	char	**s_lines;
 	t_node	*node[2];
+	int		d;
 
-	while (lines && lines->type < 2 && ft_printf("%s\n", lines->line))
+	d = 0;
+	while (lines && lines->type < 2 && ++d && ft_printf("%s\n", lines->line))
 		lines = lines->next;
+	if (d < 2 || !lines)
+		error_exit(2, NULL);
 	while (lines)
 	{
-		if (lines->line[0] == '#')
-		{
-			lines = lines->next;
+		if (lines->line[0] == '#' && ((lines = lines->next) != NULL ? 1 : 1))
 			continue;
-		}
 		if (!(s_lines = ft_strsplit(lines->line, '-')))
 			error_exit(3, NULL);
 		node[0] = get_node(lst_node, s_lines[0], nodes_c);
