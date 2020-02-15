@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 13:07:14 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/10 23:46:36 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/15 09:42:53 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_node			**h_table(t_parse *lines, int nodes_c)
 	int		prop;
 
 	nodes = (t_node **)malloc(sizeof(t_node *) * nodes_c);
+	prop = 0;
 	i = -1;
 	while (++i < nodes_c)
 		nodes[i] = NULL;
