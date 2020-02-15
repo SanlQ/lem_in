@@ -1,6 +1,6 @@
 .vscode
 .DS*
 obj
-./lem-in
+lem-in
 ./libft/obj
-./libft/libft.a
+libft/libft.a
