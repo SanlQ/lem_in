@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 22:28:36 by magoumi           #+#    #+#             */
-/*   Updated: 2020/02/12 20:16:04 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/15 11:03:38 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	push_ants_in_path(t_path *path, t_graph *g)
 	t_queue *curr;
 
 	curr = path->edge->next;
-	while (curr && curr->next)
+	while (curr)
 	{
 		if (push_to_next(curr, g))
 			break ;
@@ -115,7 +115,7 @@ void	push_ants(t_flow *paths, size_t n_ants, t_graph *g)
 		}
 		ants -= push_ants_to_start(ants, paths, &i, g);
 		ft_printf("\n");
-		if (check_paths(paths, g))
+		if (check_paths(paths, g) && !ants)
 			break ;
 	}
 }

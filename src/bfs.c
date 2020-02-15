@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:38 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/13 23:39:34 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/15 10:53:50 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_queue	*bfs_queue_init(t_graph *g, t_queue **queue)
 	t_edge *curr;
 
 	*queue = NULL;
-	if (!g->start)
+	if (!g->start || !g->sink)
 		error_exit(5, g);
 	curr = g->start->edges;
 	while (curr)
@@ -64,13 +64,20 @@ int		bfs_queue_iter(t_graph *g)
 
 	ret = 0;
 	curr = NULL;
-	q_curr = bfs_queue_init(g, &queue);
-	while (q_curr)
+	if (!(q_curr = bfs_queue_init(g, &queue)))
+		return (0);
+	if (q_curr->edge->node_dst != g->sink)
+		while (q_curr)
+		{
+			curr = q_curr->edge->node_dst->edges;
+			if ((curr = bfs_queue_add_edges(g, &queue, q_curr, curr)) && ++ret)
+				break ;
+			q_curr = q_curr->next;
+		}
+	else
 	{
-		curr = q_curr->edge->node_dst->edges;
-		if ((curr = bfs_queue_add_edges(g, &queue, q_curr, curr)) && ++ret)
-			break ;
-		q_curr = q_curr->next;
+		curr = q_curr->edge;
+		ret++;
 	}
 	while (ret && curr)
 	{

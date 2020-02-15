@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/15 05:24:47 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/15 10:56:13 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		main(int argc, char **argv)
 	flow = bfs(g, n_ants);
 	if (argc == 2)
 		ft_check_arguments(g, argv);
+	// exit(0);
 	ant_count(flow, n_ants);
 	push_ants(flow, n_ants, g);
 	return (0);

@@ -1,7 +1,7 @@
-+ start linked to the end: ./lem-in < maps/1.map
-+ no ant has reached the End creating an infinity loop(never breaking cause the path is still full): ./lem-in < maps/2.map
-+ not finding a path altho it exist -- maybe this is the case: ./lem-in < maps/9_path_depth_1_ants.map .. ./lem-in < maps/9_path_depth_10_ants.map (the same map the only dif is the number of ants you fix the first you will fix them all probably)
-+ if i know why it is not working im a fucking gay but i guess cause the paths are really deep : ./lem-in < 10k.map
-+ ./lem-in < maps/20.maps
-+ Error start value is not initialized causing it to do not show error when not present sometimes: ./lem-in -s < maps/err_start_end_same.map
+- start linked to the end: ./lem-in < maps/1.map (push_ants.c l 118 "&& !ants")
+- not finding a path altho it exist -- maybe this is the case: ./lem-in < maps/9_path_depth_1_ants.map .. ./lem-in < maps/9_path_depth_10_ants.map (the same map the only dif is the number of ants you fix the first you will fix them all probably)
+- if i know why it is not working im a fucking gay but i guess cause the paths are really deep : ./lem-in < 10k.map
+- ./lem-in < maps/20.map (push_ants.c l 90 removed "&& curr->next")
+-- no ant has reached the End creating an infinity loop(never breaking cause the path is still full): ./lem-in < maps/2.map
+- Error start value is not initialized causing it to do not show error when not present sometimes: ./lem-in -s < maps/err_start_end_same.map
 + infinity loop when giving /dev/zero: ./lem-in < /dev/zero
