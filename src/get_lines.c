@@ -6,7 +6,7 @@
 /*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:08:00 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/14 06:25:24 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/15 18:51:52 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,15 +132,18 @@ t_parse			*get_lines(int *nodes_c)
 void			read_line(int fd, char **line)
 {
 	char *dump;
+	int		ret;
 	char tmp[2];
 
-	*line = ft_strdup("");
-	while (read(fd, tmp, 1))
+	*line = ft_strdup(""); // malloc protection
+	while ((ret =read(fd, tmp, 1))) // protection against return of -1
 	{
+		// if (!ft_isascii(tmp[0]) || tmp[0] == 0) // the condition that fix /dev/zero
+		//  	exit(0); 
 		if (tmp[0] == '\n')
 			break ;
 		tmp[1] = 0;
-		dump = ft_strjoin(*line, tmp);
+		dump = ft_strjoin(*line, tmp); // malloc protection
 		free(*line);
 		*line = dump;
 	}
