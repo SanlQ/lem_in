@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 13:54:11 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/13 23:28:41 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/14 03:48:42 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ int			add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
 	else
 	{
 		curr = src->edges;
-			if ((ft_strequ(curr->node_src->name, src->name)
-					&& ft_strequ(curr->node_dst->name, dst->name))
-					|| (ft_strequ(curr->node_src->name, dst->name)
-							&& ft_strequ(curr->node_dst->name, src->name)))
-			{
-				exit(1);
-			}
+		if ((ft_strequ(curr->node_src->name, src->name)
+				&& ft_strequ(curr->node_dst->name, dst->name))
+				|| (ft_strequ(curr->node_src->name, dst->name)
+						&& ft_strequ(curr->node_dst->name, src->name)))
+		{
+			exit(1);
+		}
 		while (curr->next)
 		{
 			curr = curr->next;

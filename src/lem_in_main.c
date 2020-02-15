@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
+/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/13 23:44:03 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/15 05:24:47 by magoumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		main(int argc, char **argv)
 	t_node		**nodes;
 	int			nodes_c;
 	t_graph		*g;
-	int		n_ants;
+	int			n_ants;
 	t_flow		*flow;
 
 	pp = get_lines(&nodes_c);
@@ -58,8 +58,6 @@ int		main(int argc, char **argv)
 	flow = bfs(g, n_ants);
 	if (argc == 2)
 		ft_check_arguments(g, argv);
-	if (g->color)
-		ft_printf("printf with colors\n");
 	ant_count(flow, n_ants);
 	push_ants(flow, n_ants, g);
 	return (0);
