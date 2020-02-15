@@ -1,2 +1,6 @@
 .vscode
 .DS*
+obj
+./lem-in
+./libft/obj
+./libft/libft.a
