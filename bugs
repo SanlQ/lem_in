@@ -5,5 +5,3 @@
 + ./lem-in < maps/20.maps
 + Error start value is not initialized causing it to do not show error when not present sometimes: ./lem-in -s < maps/err_start_end_same.map
 + infinity loop when giving /dev/zero: ./lem-in < /dev/zero
-+ author file is not present a3ndak nsawh asi mhmd
-+
