@@ -6,7 +6,7 @@
 #    By: melalj <melalj@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 11:00:35 by melalj            #+#    #+#              #
-#    Updated: 2020/02/04 23:47:37 by melalj           ###   ########.fr        #
+#    Updated: 2020/02/16 03:18:08 by magoumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ CPPFLAGS =	-I ~/.brew/Cellar/sdl2_image/2.0.5/include/SDL2 \
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 NAME = lem-in
+DEPS = lem_in.h
 
 .PHONY: all, clean, fclean, re
 
@@ -57,7 +58,7 @@ $(NAME): $(OBJ)
 	@cd libft ; make
 	$(CC) $(LDFLIBS) $^ -o $@ -Llibft -lft -Ilibft
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(DEPS)
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -o $@ -c $< -Ilibft
 
