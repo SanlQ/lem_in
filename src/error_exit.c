@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:35:11 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/13 23:34:10 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/17 01:36:30 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	error_exit(int error_code, void *content)
 	else if (error_code == 4)
 		ft_printf("error in filling the edges\n");
 	else if (error_code == 5)
-	{
 		ft_printf("error no start or end\n");
-		// graph_free((t_graph *)content);
-	}
 	else if (error_code == 6)
 		ft_printf("error no rooms\n");
 	else if (error_code == 7)

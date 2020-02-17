@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 13:54:11 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/15 10:01:07 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/17 01:29:02 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int			add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
 				|| (ft_strequ(curr->node_src->name, dst->name)
 						&& ft_strequ(curr->node_dst->name, src->name)))
 		{
-			return(1);
+			return (1);
 		}
 		while (curr->next)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_lines.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:08:00 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/15 18:51:52 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/15 23:39:46 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void			read_line(int fd, char **line)
 	char tmp[2];
 
 	*line = ft_strdup(""); // malloc protection
-	while ((ret =read(fd, tmp, 1))) // protection against return of -1
+	while ((ret = read(fd, tmp, 1))) // protection against return of -1
 	{
 		// if (!ft_isascii(tmp[0]) || tmp[0] == 0) // the condition that fix /dev/zero
 		//  	exit(0); 

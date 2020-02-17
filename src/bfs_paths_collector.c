@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:56:28 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/15 10:54:09 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/16 04:25:53 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ t_flow			*bfs_paths_collector(t_graph *g, int n_ants)
 	}
 	if (!flow->n_paths)
 		error_exit(7, NULL);
-	flow->score = (flow->score + n_ants) / flow->n_paths - 1;
+	flow->score = (flow->score + n_ants) / flow->n_paths - 2;
 	return (flow);
 }

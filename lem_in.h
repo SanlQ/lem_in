@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magoumi <magoumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/12 19:46:35 by magoumi          ###   ########.fr       */
+/*   Updated: 2020/02/16 04:15:19 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ struct						s_edge
 	int				seen;
 	int				flow;
 
-	int				v_c;
 	int				path_n;
-	int				drawn;
-	t_rgb			color;
 
 	struct s_edge	*residual;
 	struct s_node	*node_dst;
@@ -79,17 +76,14 @@ typedef struct s_graph		t_graph;
 struct						s_graph
 {
 	t_node			*nodes_lst;
-	t_node			**nodes_ref;
 	size_t			n_nodes;
-	t_cords			max_c;
 	struct s_node	*start;
 	struct s_node	*sink;
-	t_dvisu			*data;
 	t_flow			*flows;
-	int				v_visu;
 	int				color;
 };
 
+
 typedef struct s_parse		t_parse;
 struct	s_parse
 {
@@ -202,6 +196,7 @@ void						init_paths_with_ants(t_flow *paths);
 void						error_exit(int error_code, void *content);
 t_flow						*bfs_paths_collector(t_graph *g, int n_ants);
 void						ant_count(t_flow *flow, int n_ants);
+int							flow_free(t_flow *flow);
 
 
 #endif

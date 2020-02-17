@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:38 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/15 10:53:50 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/16 03:56:37 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,10 @@ t_flow	*bfs(t_graph *g, int n_ants)
 		while (++j <= i)
 			bfs_queue_iter(g);
 		flow = bfs_paths_collector(g, n_ants);
-		if (p_flow && p_flow->score <= flow->score && free_sl(flow))
+		if (p_flow && p_flow->score <= flow->score && flow_free(flow))
 			break ;
-		free(p_flow);
+		ft_printf("abbah %p\n", p_flow);
+		flow_free(p_flow);
 		p_flow = flow;
 		i++;
 	}

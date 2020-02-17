@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:07:41 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/15 10:56:13 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/17 00:03:08 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ int		main(int argc, char **argv)
 	edges_fill(nodes, pp, nodes_c);
 	parser_free(pp);
 	g = graph_init(nodes, nodes_c);
+	free(nodes);
 	flow = bfs(g, n_ants);
 	if (argc == 2)
 		ft_check_arguments(g, argv);
 	// exit(0);
 	ant_count(flow, n_ants);
 	push_ants(flow, n_ants, g);
+	flow_free(flow);
+	graph_free(g);
 	return (0);
 }
