@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/16 04:15:19 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/17 06:47:14 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ void						error_exit(int error_code, void *content);
 t_flow						*bfs_paths_collector(t_graph *g, int n_ants);
 void						ant_count(t_flow *flow, int n_ants);
 int							flow_free(t_flow *flow);
+void	parser_free(t_parse *p);
 
 
 #endif

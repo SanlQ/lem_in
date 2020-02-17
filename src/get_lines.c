@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:08:00 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/15 23:39:46 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/17 07:29:40 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int				check_node(char *line)
 	{
 		if (ft_strequ(line + 2, "start"))
 			return (NODE_START);
-		if (ft_strequ(line + 2, "end"))
+		else if (ft_strequ(line + 2, "end"))
 			return (NODE_END);
+		else
+			return (-1);
 	}
 	sline = ft_strsplit(line, ' ');
 	i = -1;
@@ -96,7 +98,7 @@ int				parse_line(t_parse **p_lines, int *type, int *prop)
 		*p_lines = add_pline(line, *type, *prop);
 	}
 	else
-		error_exit(2, p_lines);
+		error_exit(2, *p_lines);
 	free(line);
 	return ((*type == 1 && *prop == 1) ? 1 : 0);
 }
@@ -110,9 +112,12 @@ t_parse			*get_lines(int *nodes_c)
 
 	p_lines = NULL;
 	type = 0;
-	*nodes_c = 0;
+	current = NULL;
 	while (!type)
+	{
+		parser_free(current);
 		parse_line(&(current), &type, &prop);
+	}
 	p_lines = current;
 	while (p_lines && type >= 0)
 	{
