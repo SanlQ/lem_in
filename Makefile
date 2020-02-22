@@ -6,7 +6,7 @@
 #    By: melalj <melalj@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 11:00:35 by melalj            #+#    #+#              #
-#    Updated: 2020/02/22 13:51:24 by melalj           ###   ########.fr        #
+#    Updated: 2020/02/22 13:53:16 by melalj           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC_NAME = lem_in_main.c\
 			bfs.c\
 			queue.c\
 			push_ants.c \
-			libghiti.c\
+			check_paths.c\
 			error_exit.c\
 			bfs_paths_collector.c\
 			ant_count.c\
