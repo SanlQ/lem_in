@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 23:43:23 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/17 01:33:17 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/22 13:51:33 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,54 +29,50 @@ void	lstdel_node(void *c, size_t size)
 	free(((t_node *)c)->name);
 }
 
+void	graph_values_init(t_graph *g)
+{
+	g->color = 0;
+	g->flows = NULL;
+	g->n_ants = 0;
+	g->n_nodes = 0;
+	g->nodes_lst = NULL;
+	g->sink = NULL;
+	g->start = NULL;
+}
+
 t_graph	*graph_init(t_node **nodes, int nodes_c)
 {
 	t_graph *g;
 	t_node	*curr;
 	t_node	*walk;
-	size_t	i;
+	int		i;
 
-	i = 0;
-	g = (t_graph *)ft_memalloc(sizeof(t_graph));
-	g->n_nodes = nodes_c;
-	g->start = NULL;
-	g->sink = NULL;
-	g->color = 0;
-	while ((int)i < nodes_c)
+	i = -1;
+	if (!(g = (t_graph *)malloc(sizeof(t_graph))))
+		error_exit(3, NULL);
+	graph_values_init(g);
+	while (++i < nodes_c)
 	{
 		curr = nodes[i];
 		while (curr)
 		{
 			g->start = (curr->type == NODE_START) ? curr : g->start;
 			g->sink = (curr->type == NODE_END) ? curr : g->sink;
-			if (g->nodes_lst == NULL)
-			{
-				// g->nodes_lst = ft_memcpy(malloc(sizeof(t_node)),
-				// 							curr, sizeof(t_node));
-				g->nodes_lst = curr;
+			if (g->nodes_lst == NULL && (g->nodes_lst = curr))
 				walk = g->nodes_lst;
-			}
-			else
-			{
-				// walk->next = ft_memcpy(malloc(sizeof(t_node)),
-				// 						curr, sizeof(t_node));
-				walk->next = curr;
+			else if ((walk->next = curr))
 				walk = walk->next;
-			}
 			curr = curr->next;
 		}
-		i++;
 	}
-	// error_exit(5, g);
 	return (g);
 }
 
 void	edges_free(t_graph *g)
 {
-	t_node *node;
-	t_node	*node_tmp;
-	t_edge *edge;
-	t_edge *edge_tmp;
+	t_node	*node;
+	t_edge	*edge;
+	t_edge	*edge_tmp;
 
 	node = g->nodes_lst;
 	while (node)
@@ -89,11 +85,6 @@ void	edges_free(t_graph *g)
 			free(edge_tmp);
 			edge_tmp = NULL;
 		}
-		// node_tmp = node;
-		// free(node_tmp->name);
-		// node_tmp->name = 0;
-		// free(node_tmp);
-		// node_tmp = 0;
 		node = node->next;
 	}
 }
@@ -115,7 +106,6 @@ void	nodes_free(t_graph *g)
 
 void	graph_free(t_graph *g)
 {
-
 	edges_free(g);
 	nodes_free(g);
 	free(g);

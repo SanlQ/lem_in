@@ -6,17 +6,14 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 22:08:00 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/17 07:29:40 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/22 13:47:38 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-int				check_node(char *line)
+int				check_node_comment(char *line)
 {
-	char	**sline;
-	int		i;
-
 	if (line && line[0] == '#' && line[1] != '#')
 		return (-1);
 	else if (line && line[0] == '#' && line[1] == '#')
@@ -28,7 +25,18 @@ int				check_node(char *line)
 		else
 			return (-1);
 	}
-	sline = ft_strsplit(line, ' ');
+	return (0);
+}
+
+int				check_node(char *line)
+{
+	char	**sline;
+	int		i;
+
+	if ((i = check_node_comment(line)))
+		return (i);
+	if (!(sline = ft_strsplit(line, ' ')))
+		error_exit(3, NULL);
 	i = -1;
 	while (sline[++i])
 	{
@@ -50,7 +58,8 @@ int				check_edge(char *line)
 
 	if (line && line[0] == '#')
 		return (-1);
-	sline = ft_strsplit(line, '-');
+	if (!(sline = ft_strsplit(line, '-')))
+		error_exit(3, NULL);
 	i = -1;
 	while (sline[++i])
 		if (i == 1 && ft_strequ(sline[1], sline[0]))
@@ -66,7 +75,7 @@ static t_parse	*add_pline(char *line, int type, int prop)
 	t_parse	*p_lines;
 
 	if (!(p_lines = (t_parse*)malloc(sizeof(t_parse))))
-		return (NULL);
+		error_exit(3, NULL);
 	p_lines->line = ft_strdup(line);
 	p_lines->prop = prop;
 	p_lines->type = type;
@@ -79,20 +88,20 @@ int				parse_line(t_parse **p_lines, int *type, int *prop)
 	char *line;
 
 	read_line(0, &line);
-	if (ft_strequ(line, "") && (*type)++)
+	if (line && ft_strequ(line, "") && (*type)++)
 		*prop = -1;
-	else if (!(*type) && ft_isnumber(line))
+	else if (line && !(*type) && ft_isnumber(line))
 	{
 		if (ft_atoi(line) <= 0)
 			error_exit(1, p_lines);
 		*p_lines = add_pline(line, *type, *prop);
 		(*type)++;
 	}
-	else if ((*type) == 1 && ((*prop) = check_node(line)))
+	else if (line && (*type) == 1 && ((*prop) = check_node(line)))
 	{
 		*p_lines = add_pline(line, *type, *prop);
 	}
-	else if (check_edge(line))
+	else if (line && check_edge(line))
 	{
 		(*type) = ((*type) == 1) ? (*type) + 1 : (*type);
 		*p_lines = add_pline(line, *type, *prop);
@@ -113,11 +122,8 @@ t_parse			*get_lines(int *nodes_c)
 	p_lines = NULL;
 	type = 0;
 	current = NULL;
-	while (!type)
-	{
-		parser_free(current);
+	while (!type && parser_free(current))
 		parse_line(&(current), &type, &prop);
-	}
 	p_lines = current;
 	while (p_lines && type >= 0)
 	{
@@ -134,21 +140,28 @@ t_parse			*get_lines(int *nodes_c)
 	return (p_lines);
 }
 
+/*
+**	if (!ft_isascii(tmp[0]) || tmp[0] == 0) // the condition that fix /dev/zero
+**		exit(0);
+*/
+
 void			read_line(int fd, char **line)
 {
-	char *dump;
+	char	*dump;
 	int		ret;
-	char tmp[2];
+	char	tmp[2];
 
-	*line = ft_strdup(""); // malloc protection
-	while ((ret = read(fd, tmp, 1))) // protection against return of -1
+	if (!(*line = ft_strdup("")))
+		error_exit(3, NULL);
+	while ((ret = read(fd, tmp, 1)))
 	{
-		// if (!ft_isascii(tmp[0]) || tmp[0] == 0) // the condition that fix /dev/zero
-		//  	exit(0); 
+		if (ret == -1)
+			error_exit(8, NULL);
 		if (tmp[0] == '\n')
 			break ;
 		tmp[1] = 0;
-		dump = ft_strjoin(*line, tmp); // malloc protection
+		if (!(dump = ft_strjoin(*line, tmp)))
+			error_exit(3, NULL);
 		free(*line);
 		*line = dump;
 	}

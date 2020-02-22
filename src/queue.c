@@ -6,13 +6,13 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:34:42 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/17 01:22:54 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/22 11:18:35 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-void	add_to_queue(t_queue **queue, t_edge *edge, int head)
+void	add_to_queue(t_queue **queue, t_edge *edge)
 {
 	t_queue *curr;
 
@@ -25,23 +25,13 @@ void	add_to_queue(t_queue **queue, t_edge *edge, int head)
 	}
 	else
 	{
-		if (!head && (curr = (*queue)))
-		{
-			while (curr->next)
-				curr = curr->next;
-			if (!(curr->next = (t_queue *)malloc(sizeof(t_queue))))
-				error_exit(3, NULL);
-			curr->next->edge = edge;
-			curr->next->next = NULL;
-		}
-		else
-		{
-			if (!(curr = (t_queue *)malloc(sizeof(t_queue))))
-				error_exit(3, NULL);
-			curr->edge = edge;
-			curr->next = (*queue);
-			(*queue) = curr;
-		}
+		curr = *queue;
+		while (curr->next)
+			curr = curr->next;
+		if (!(curr->next = (t_queue *)malloc(sizeof(t_queue))))
+			error_exit(3, NULL);
+		curr->next->edge = edge;
+		curr->next->next = NULL;
 	}
 }
 

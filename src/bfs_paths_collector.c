@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 22:56:28 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/16 04:25:53 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/22 13:43:35 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,39 @@ static t_path	*bfs_add_path(t_graph *g)
 	path->edge = NULL;
 	while (curr)
 	{
-		add_to_queue(&(path->edge), curr, 0);
+		add_to_queue(&(path->edge), curr);
 		path->size++;
 		curr = bfs_add_path_follow_flow(curr->node_dst);
 	}
 	return (path);
+}
+
+static void		bfs_insert(t_flow *f, t_path **path, t_path **c, t_path **prev)
+{
+	*prev = NULL;
+	*c = f->paths;
+	if (!(*c))
+		f->paths = *path;
+	else
+	{
+		*c = f->paths;
+		*prev = NULL;
+		if ((*path)->size <= (*c)->size && (f->paths = *path))
+			(*path)->next = *c;
+		else
+		{
+			insert_mid(&f, path, c, prev);
+			if (!(*c)->next)
+			{
+				if ((*path)->size <= (*c)->size && ((*prev)->next = *path))
+					(*path)->next = *c;
+				else
+					(*c)->next = *path;
+			}
+		}
+	}
+	f->score += (*path)->size;
+	f->n_paths++;
 }
 
 t_flow			*bfs_paths_collector(t_graph *g, int n_ants)
@@ -81,37 +109,13 @@ t_flow			*bfs_paths_collector(t_graph *g, int n_ants)
 	t_path	*curr;
 	t_path	*prev;
 
-	flow = (t_flow *)malloc(sizeof(t_flow));
+	if (!(flow = (t_flow *)malloc(sizeof(t_flow))))
+		error_exit(3, NULL);
 	flow->n_paths = 0;
 	flow->paths = NULL;
 	flow->score = 0;
 	while ((path = bfs_add_path(g)))
-	{
-		prev = NULL;
-		curr = flow->paths;
-		if (!curr)
-			flow->paths = path;
-		else
-		{
-			curr = flow->paths;
-			prev = NULL;
-			if (path->size <= curr->size && (flow->paths = path))
-				path->next = curr;
-			else
-			{
-				insert_mid(&flow, &path, &curr, &prev);
-				if (!curr->next)
-				{
-					if (path->size <= curr->size && (prev->next = path))
-						path->next = curr;
-					else
-						curr->next = path;
-				}
-			}
-		}
-		flow->score += path->size;
-		flow->n_paths++;
-	}
+		bfs_insert(flow, &path, &curr, &prev);
 	if (!flow->n_paths)
 		error_exit(7, NULL);
 	flow->score = (flow->score + n_ants) / flow->n_paths - 2;

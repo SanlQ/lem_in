@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:38 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/16 03:56:37 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/22 13:40:21 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_queue	*bfs_queue_init(t_graph *g, t_queue **queue)
 	while (curr)
 	{
 		if (!curr->flow)
-			add_to_queue(queue, curr, 0);
+			add_to_queue(queue, curr);
 		curr = curr->next;
 	}
 	return (*queue);
@@ -44,7 +44,7 @@ t_edge	*bfs_queue_add_edges(t_graph *g, t_queue **q, t_queue *q_p, t_edge *e)
 			t = 1;
 		if (!curr->seen && !curr->flow && curr->node_dst != g->start && !t)
 		{
-			add_to_queue(q, curr, 0);
+			add_to_queue(q, curr);
 			curr->origin = q_p->edge;
 			curr->seen = 1;
 		}
@@ -74,18 +74,11 @@ int		bfs_queue_iter(t_graph *g)
 				break ;
 			q_curr = q_curr->next;
 		}
-	else
-	{
+	else if (++ret)
 		curr = q_curr->edge;
-		ret++;
-	}
-	while (ret && curr)
-	{
-		curr->flow = 1;
-		curr->node_dst->seen = 1;
-		curr->node_src->seen = 1;
+	while (ret && curr && (curr->flow = 1)
+		&& (curr->node_dst->seen |= 1) && (curr->node_src->seen |= 1))
 		curr = curr->origin;
-	}
 	delete_queue(&queue);
 	return (ret);
 }
@@ -122,7 +115,6 @@ t_flow	*bfs(t_graph *g, int n_ants)
 		flow = bfs_paths_collector(g, n_ants);
 		if (p_flow && p_flow->score <= flow->score && flow_free(flow))
 			break ;
-		ft_printf("abbah %p\n", p_flow);
 		flow_free(p_flow);
 		p_flow = flow;
 		i++;

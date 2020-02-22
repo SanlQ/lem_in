@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 13:54:11 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/17 01:29:02 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/22 13:46:47 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,35 @@ t_node		*get_node(t_node **lst_node, char *name, int nodes_c)
 **  add the edge and it's residual
 */
 
+void		add_edge_init(t_edge **edge, t_node *dst, t_node *src)
+{
+	t_edge *tmp;
+
+	tmp = *edge;
+	tmp->node_dst = dst;
+	tmp->node_src = src;
+	tmp->origin = NULL;
+	tmp->flow = 0;
+	tmp->next = NULL;
+}
+
+int	add_edge_resi_init(t_edge **edge, t_edge **resi)
+{
+	(*edge)->residual = (*resi);
+	(*resi)->residual = (*edge);
+	(*resi)->seen = 0;
+	(*edge)->seen = 0;
+	return (1);
+}
+
+/*
+**	if ((ft_strequ(curr->node_src->name, src->name)
+**	&& ft_strequ(curr->node_dst->name, dst->name))
+**		|| (ft_strequ(curr->node_src->name, dst->name)
+**			&& ft_strequ(curr->node_dst->name, src->name)))
+**	return (1);
+*/
+
 int			add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
 {
 	t_edge *curr;
@@ -94,39 +123,22 @@ int			add_edge(t_node *src, t_node *dst, bool is_residual, t_edge *e)
 	is_residual ^= true;
 	if (src->edges == NULL)
 	{
-		src->edges = (t_edge *)malloc(sizeof(t_edge));
+		if (!(src->edges = (t_edge *)malloc(sizeof(t_edge))))
+			error_exit(3, NULL);
 		tmp = src->edges;
 	}
 	else
 	{
 		curr = src->edges;
-		if ((ft_strequ(curr->node_src->name, src->name)
-				&& ft_strequ(curr->node_dst->name, dst->name))
-				|| (ft_strequ(curr->node_src->name, dst->name)
-						&& ft_strequ(curr->node_dst->name, src->name)))
-		{
-			return (1);
-		}
 		while (curr->next)
-		{
 			curr = curr->next;
-		}
-		curr->next = (t_edge *)malloc(sizeof(t_edge));
+		if (!(curr->next = (t_edge *)malloc(sizeof(t_edge))))
+			error_exit(3, NULL);
 		tmp = curr->next;
 	}
-	tmp->node_dst = dst;
-	tmp->node_src = src;
-	tmp->origin = NULL;
-	tmp->flow = 0;
-	tmp->next = NULL;
-	if (is_residual == false)
-	{
-		tmp->residual = e;
-		e->residual = tmp;
-		e->seen = 0;
-		tmp->seen = 0;
+	add_edge_init(&tmp, dst, src);
+	if (is_residual == false && add_edge_resi_init(&tmp, &e))
 		return (0);
-	}
 	add_edge(dst, src, true, tmp);
 	return (1);
 }

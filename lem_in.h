@@ -6,7 +6,7 @@
 /*   By: melalj <melalj@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:09:55 by melalj            #+#    #+#             */
-/*   Updated: 2020/02/17 06:47:14 by melalj           ###   ########.fr       */
+/*   Updated: 2020/02/22 11:43:35 by melalj           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ struct						s_graph
 	struct s_node	*sink;
 	t_flow			*flows;
 	int				color;
+	int				n_ants;
 };
 
 
@@ -154,7 +155,7 @@ int		nodes_draw(t_graph *g, SDL_Rect dstr);
 /*
 ** queue
 */
-void	add_to_queue(t_queue **queue, t_edge *edge, int head);
+void	add_to_queue(t_queue **queue, t_edge *edge);
 void	print_queue(t_queue *queue);
 void	delete_queue(t_queue **queue);
 
@@ -197,7 +198,7 @@ void						error_exit(int error_code, void *content);
 t_flow						*bfs_paths_collector(t_graph *g, int n_ants);
 void						ant_count(t_flow *flow, int n_ants);
 int							flow_free(t_flow *flow);
-void	parser_free(t_parse *p);
+int							parser_free(t_parse *p);
 
 
 #endif

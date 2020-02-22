@@ -6,7 +6,7 @@
 #    By: melalj <melalj@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 11:00:35 by melalj            #+#    #+#              #
-#    Updated: 2020/02/17 03:27:36 by melalj           ###   ########.fr        #
+#    Updated: 2020/02/22 13:51:24 by melalj           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ SRC_NAME = lem_in_main.c\
 			parser.c\
 			hash_t.c\
 			get_lines.c\
-			tools.c\
 			graph.c\
 			bfs.c\
 			queue.c\
@@ -24,7 +23,7 @@ SRC_NAME = lem_in_main.c\
 			error_exit.c\
 			bfs_paths_collector.c\
 			ant_count.c\
-			free_fun.c
+			free_flow.c
 
 OBJ_PATH = obj
 HEADER = ./lem_in.h
@@ -36,7 +35,7 @@ CPPFLAGS =	-I include \
 			-I libft/include \
 
 CC = gcc
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -Werror -g
 NAME = lem-in
 
 .PHONY: all, clean, fclean, re
